@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#064e3b">
+    <title>Student Result Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div>
+        <p class="eyebrow">ACADEMIC RECORDS</p>
+        <h1>Student Result Management System</h1>
+    </div>
+    <button id="modeBtn" class="mode-button" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">🌙</button>
+</header>
+
+<div class="container">
+
+    <section class="card" aria-labelledby="studentInfoTitle">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">NEW ENTRY</p>
+                <h2 id="studentInfoTitle">Student Information</h2>
+            </div>
+        </div>
+
+        <form id="resultForm">
+            <label for="name">Student name</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Alex Morgan" maxlength="80" autocomplete="name" required>
+
+            <label for="roll">Roll number</label>
+            <input type="text" id="roll" name="roll" placeholder="e.g. 2026-001" maxlength="30" required>
+
+            <div class="marks-heading">
+                <div>
+                    <h3>Subject marks</h3>
+                    <p>Enter a score from 0 to 100 for each subject.</p>
+                </div>
+                <span class="marks-total">300 max</span>
+            </div>
+            <label for="sub1">Mathematics</label>
+            <input type="number" id="sub1" name="mathematics" placeholder="0–100" min="0" max="100" step="any" inputmode="decimal" required>
+            <label for="sub2">Physics</label>
+            <input type="number" id="sub2" name="physics" placeholder="0–100" min="0" max="100" step="any" inputmode="decimal" required>
+            <label for="sub3">Chemistry</label>
+            <input type="number" id="sub3" name="chemistry" placeholder="0–100" min="0" max="100" step="any" inputmode="decimal" required>
+
+            <button class="submit-button" type="submit">Generate result <span aria-hidden="true">→</span></button>
+            <p id="formMessage" class="message" role="status" aria-live="polite"></p>
+        </form>
+    </section>
+
+    <section class="card dashboard-card" aria-labelledby="dashboardTitle">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow">OVERVIEW</p>
+                <h2 id="dashboardTitle">Result Dashboard</h2>
+            </div>
+            <button id="printBtn" class="text-button hidden" type="button">Print result</button>
+        </div>
+
+        <div id="emptyDashboard" class="empty-state">
+            <div class="empty-icon" aria-hidden="true">▤</div>
+            <h3>Your result will appear here</h3>
+            <p>Fill in the student details and marks to generate a result summary.</p>
+        </div>
+
+        <div id="resultBox" class="hidden">
+            <div class="student-summary">
+                <div class="student-avatar" aria-hidden="true">S</div>
+                <div>
+                    <h3 id="resultName">Student name</h3>
+                    <p>Roll number <strong id="resultRoll">—</strong></p>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-card">
+                    <span>Percentage</span>
+                    <h3 id="percent">0%</h3>
+                </div>
+                <div class="stat-card">
+                    <span>CGPA</span>
+                    <h3 id="cgpa">0</h3>
+                </div>
+                <div class="stat-card">
+                    <span>Status</span>
+                    <h3 id="status" class="status-value">—</h3>
+                </div>
+            </div>
+            <div class="chart-heading">
+                <h3>Subject performance</h3>
+                <span>Marks out of 100</span>
+            </div>
+            <canvas id="chart" role="img" aria-label="Bar chart showing subject marks"></canvas>
+            <div id="chartFallback" class="chart-fallback hidden" aria-label="Subject marks"></div>
+        </div>
+    </section>
+
+</div>
+
+<section class="card wide" aria-labelledby="historyTitle">
+    <div class="history-heading">
+        <div>
+            <p class="eyebrow">SAVED RECORDS</p>
+            <h2 id="historyTitle">Result History <span id="recordCount" class="record-count">0</span></h2>
+        </div>
+        <div class="history-actions">
+            <label class="search-label" for="historySearch">Search results</label>
+            <input id="historySearch" type="search" placeholder="Search name or roll number" autocomplete="off">
+            <button id="clearHistoryBtn" class="text-button danger-button" type="button" disabled>Clear history</button>
+        </div>
+    </div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Student</th>
+                    <th scope="col">Roll number</th>
+                    <th scope="col">Percentage</th>
+                    <th scope="col">CGPA</th>
+                    <th scope="col">Status</th>
+                    <th scope="col"><span class="visually-hidden">Actions</span></th>
+                </tr>
+            </thead>
+            <tbody id="history"></tbody>
+        </table>
+    </div>
+    <p id="storageMessage" class="message" role="status" aria-live="polite"></p>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
